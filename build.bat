@@ -29,9 +29,11 @@ haxe -cp .. Test.hx -main Test -cpp ..\temp\hx
 cd ..
 
 copy temp\hx\Test.exe ndll\Windows
+copy example\steam_appid.txt ndll\Windows
 
 cd example
 haxe -cp .. Test.hx -main Test -cpp ..\temp64\hx -D HXCPP_M64=1
 cd ..
 
 copy temp64\hx\Test.exe ndll\Windows64
+copy example\steam_appid.txt ndll\Windows64

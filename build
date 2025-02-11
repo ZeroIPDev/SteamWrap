@@ -18,9 +18,11 @@ haxe -cp .. Test.hx -main Test -cpp ../temp/hx/
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
 	echo Copying Linux executable
 	cp Test.sh ../ndll/Linux64
+	cp steam_appid.txt ../ndll/Linux64
 	cp ../temp/hx/Test ../ndll/Linux64
 	cp ../native/lib/linux64/libsteam_api.so ../ndll/Linux64
 elif [[ "$OSTYPE" == "darwin" ]]; then
 	echo Copying Mac executable
+	cpp steam_appid.txt ../ndll/Mac64
 	cpp ../temp/hx/Test.app ../ndll/Mac64
 fi
