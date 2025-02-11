@@ -946,7 +946,9 @@ value SteamWrap_RequestStats()
 	if (!CheckInit())
 		return alloc_bool(false);
 
-	bool result = SteamUserStats()->RequestCurrentStats();
+	// Deprecated function, return true always
+	// bool result = SteamUserStats()->RequestCurrentStats();
+	bool result = true;
 	return alloc_bool(result);
 }
 DEFINE_PRIM(SteamWrap_RequestStats, 0);

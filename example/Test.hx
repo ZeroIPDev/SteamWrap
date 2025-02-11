@@ -7,7 +7,7 @@ class Test
 	{
 		trace("Start");
 		
-		var appID:Int = -1;			//PUT YOUR APP ID HERE!
+		var appID:Int = 480;			//PUT YOUR APP ID HERE!
 		
 		if (appID == -1)
 		{
@@ -19,7 +19,7 @@ class Test
 		Steam.whenAchievementStored = steamWrap_onAchievementStored;
 		Steam.whenLeaderboardScoreDownloaded = steamWrap_onLeaderboardScoreDownloaded;
 
-		var achs = [];				//PUT SOME ACHIEVEMENTS HERE: ["BEAT_LEVEL_1","BEAT_LEVEL_2"], etc.
+		var achs = ["ACH_WIN_ONE_GAME", "ACH_WIN_100_GAMES", "ACH_TRAVEL_FAR_ACCUM", "ACH_TRAVEL_FAR_SINGLE", "NEW_ACHIEVEMENT_0_4"];				//PUT SOME ACHIEVEMENTS HERE: ["BEAT_LEVEL_1","BEAT_LEVEL_2"], etc.
 		
 		if (achs != null && achs.length > 0)
 		{
