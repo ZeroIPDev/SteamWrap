@@ -2956,7 +2956,27 @@ value SteamWrap_GetResultStatus(value invHandle)
 DEFINE_PRIM(SteamWrap_GetResultStatus,1);
 
 //-----------------------------------------------------------------------------------------------------------
-
+value SteamWrap_GetResultItems(value invHandle)
+{
+	SteamInventoryResult_t _resultHandle = val_int(invHandle);
+	std::vector<SteamItemDetails_t> vecItems;
+	uint32 count = 0;
+	if(SteamInventory()->GetResultItems(_resultHandle, NULL, &count)) {
+		vecItems.resize(count);
+		SteamInventory()->GetResultItems(_resultHandle, vecItems.data(), &count);
+		std::ostringstream data;
+		for(int i = 0; i < count; i++) {
+			if(i != 0) data << ":";
+			data << vecItems[i].m_itemId << ",";
+			data << vecItems[i].m_iDefinition << ",";
+			data << vecItems[i].m_unQuantity << ",";
+			data << vecItems[i].m_unFlags;
+		}
+		return alloc_string(data.str().c_str());
+	}
+	return alloc_string("");
+}
+DEFINE_PRIM(SteamWrap_GetResultItems,1);
 
 #pragma endregion
 

@@ -156,6 +156,7 @@ class Steam
 			// Inventory
 			SteamWrap_GetAllItems = cpp.Lib.load("steamwrap", "SteamWrap_GetAllItems", 0);
 			SteamWrap_GetResultStatus = cpp.Lib.load("steamwrap", "SteamWrap_GetResultStatus", 1);
+			SteamWrap_GetResultItems = cpp.Lib.load("steamwrap", "SteamWrap_GetResultItems", 1);
 		}
 		catch (e:Dynamic) {
 			customTrace("Running non-Steam version (" + e + ")");
@@ -474,6 +475,11 @@ class Steam
 		return SteamWrap_GetResultStatus(handle);
 	}
 
+	public static function getResultItems(handle:Int):String {
+		if(!active) return "";
+		return SteamWrap_GetResultItems(handle);
+	}
+
 	//PRIVATE:
 
 	private static var haveGlobalStats:Bool;
@@ -688,6 +694,7 @@ class Steam
 	// Inventory
 	private static var SteamWrap_GetAllItems:Dynamic;
 	private static var SteamWrap_GetResultStatus:Dynamic;
+	private static var SteamWrap_GetResultItems:Dynamic;
 }
 
 class LeaderboardScore {
