@@ -153,6 +153,9 @@ class Steam
 			SteamWrap_OpenOverlay = cpp.Lib.load("steamwrap", "SteamWrap_OpenOverlay", 1);
 			SteamWrap_BIsAppInstalled = cpp.Lib.load("steamwrap", "SteamWrap_BIsAppInstalled", 1);
 			SteamWrap_BIsDlcInstalled = cpp.Lib.load("steamwrap", "SteamWrap_BIsDlcInstalled", 1);
+			// Inventory
+			SteamWrap_GetAllItems = cpp.Lib.load("steamwrap", "SteamWrap_GetAllItems", 0);
+			SteamWrap_GetResultStatus = cpp.Lib.load("steamwrap", "SteamWrap_GetResultStatus", 1);
 		}
 		catch (e:Dynamic) {
 			customTrace("Running non-Steam version (" + e + ")");
@@ -460,6 +463,17 @@ class Steam
 		return true;
 	}
 
+	// Inventory functions
+	public static function getAllItems():Int {
+		if(!active) return -1;
+		return SteamWrap_GetAllItems();
+	}
+
+	public static function getResultStatus(handle:Int):Int {
+		if(!active) return -1;
+		return SteamWrap_GetResultStatus(handle);
+	}
+
 	//PRIVATE:
 
 	private static var haveGlobalStats:Bool;
@@ -671,6 +685,9 @@ class Steam
 	private static var SteamWrap_OpenOverlay:Dynamic;
 	private static var SteamWrap_BIsAppInstalled:Dynamic;
 	private static var SteamWrap_BIsDlcInstalled:Dynamic;
+	// Inventory
+	private static var SteamWrap_GetAllItems:Dynamic;
+	private static var SteamWrap_GetResultStatus:Dynamic;
 }
 
 class LeaderboardScore {

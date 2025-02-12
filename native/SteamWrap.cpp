@@ -886,7 +886,7 @@ extern "C"
 //-----------------------------------------------------------------------------------------------------------
 static bool CheckInit()
 {
-	return SteamUser() && SteamUser()->BLoggedOn() && SteamUserStats() && (s_callbackHandler != 0) && (g_eventHandler != 0);
+	return SteamUser() && SteamUser()->BLoggedOn() && SteamUserStats() && SteamInventory() && (s_callbackHandler != 0) && (g_eventHandler != 0);
 }
 
 //-----------------------------------------------------------------------------------------------------------
@@ -2932,6 +2932,31 @@ value SteamWrap_GetControllerMaxAnalogActionData()
 DEFINE_PRIM(SteamWrap_GetControllerMaxAnalogActionData,0);
 
 //-----------------------------------------------------------------------------------------------------------
+
+#pragma endregion
+
+#pragma region Steam Inventory
+
+//-----------------------------------------------------------------------------------------------------------
+value SteamWrap_GetAllItems()
+{
+	SteamInventoryResult_t _result;
+	SteamInventory()->GetAllItems(&_result);
+	return alloc_int(_result);
+}
+DEFINE_PRIM(SteamWrap_GetAllItems,0);
+
+//-----------------------------------------------------------------------------------------------------------
+value SteamWrap_GetResultStatus(value invHandle)
+{
+	SteamInventoryResult_t _resultHandle = val_int(invHandle);
+	EResult _result = SteamInventory()->GetResultStatus(_resultHandle);
+	return alloc_int(_result);
+}
+DEFINE_PRIM(SteamWrap_GetResultStatus,1);
+
+//-----------------------------------------------------------------------------------------------------------
+
 
 #pragma endregion
 
