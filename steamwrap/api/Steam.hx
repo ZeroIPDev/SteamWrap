@@ -157,6 +157,8 @@ class Steam
 			SteamWrap_GetAllItems = cpp.Lib.load("steamwrap", "SteamWrap_GetAllItems", 0);
 			SteamWrap_GetResultStatus = cpp.Lib.load("steamwrap", "SteamWrap_GetResultStatus", 1);
 			SteamWrap_GetResultItems = cpp.Lib.load("steamwrap", "SteamWrap_GetResultItems", 1);
+			SteamWrap_GenerateItems = cpp.Lib.load("steamwrap", "SteamWrap_GenerateItems", 3);
+			SteamWrap_DestroyResult = cpp.Lib.load("steamwrap", "SteamWrap_DestroyResult", 1);
 		}
 		catch (e:Dynamic) {
 			customTrace("Running non-Steam version (" + e + ")");
@@ -480,6 +482,17 @@ class Steam
 		return SteamWrap_GetResultItems(handle);
 	}
 
+	public static function generateItems(items:Array<Int>, amounts:Array<Int>):Int {
+		if(!active || items.length != amounts.length) return -1;
+		return SteamWrap_GenerateItems(items, amounts, items.length);
+	}
+
+	public static function destroyResult(handle:Int):Int {
+		if(!active) return -1;
+		SteamWrap_DestroyResult(handle);
+		return 0;
+	}
+
 	//PRIVATE:
 
 	private static var haveGlobalStats:Bool;
@@ -695,6 +708,8 @@ class Steam
 	private static var SteamWrap_GetAllItems:Dynamic;
 	private static var SteamWrap_GetResultStatus:Dynamic;
 	private static var SteamWrap_GetResultItems:Dynamic;
+	private static var SteamWrap_GenerateItems:Dynamic;
+	private static var SteamWrap_DestroyResult:Dynamic;
 }
 
 class LeaderboardScore {
