@@ -2981,18 +2981,21 @@ DEFINE_PRIM(SteamWrap_GetResultItems,1);
 //-----------------------------------------------------------------------------------------------------------
 value SteamWrap_GenerateItems(value itemDefs, value itemAmts, value arrayLen)
 {
-	SteamInventoryResult_t _result;
-	uint32 _len = val_int(arrayLen);
-	SteamItemDef_t _items[_len];
-	uint32 _amts[_len];
-	int* _c_items = val_array_int(itemDefs);
-	int* _c_amts = val_array_int(itemAmts);
-	for(int i = 0; i < _len; i++) {
-		_items[i] = _c_items[i];
-		_amts[i] = _c_amts[i];
-	}
-	SteamInventory()->GenerateItems(&_result, _items, _amts, _len);
-	return alloc_int(_result);
+	// CURRENTLY BROKEN! Do not use
+
+	// SteamInventoryResult_t _result;
+	// uint32 _len = val_int(arrayLen);
+	// SteamItemDef_t _items[_len];
+	// uint32 _amts[_len];
+	// int* _c_items = val_array_int(itemDefs);
+	// int* _c_amts = val_array_int(itemAmts);
+	// for(int i = 0; i < _len; i++) {
+	// 	_items[i] = _c_items[i];
+	// 	_amts[i] = _c_amts[i];
+	// }
+	// SteamInventory()->GenerateItems(&_result, _items, _amts, _len);
+	// return alloc_int(_result);
+	return alloc_int(-1);
 }
 DEFINE_PRIM(SteamWrap_GenerateItems,3);
 
