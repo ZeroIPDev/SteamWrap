@@ -3004,6 +3004,15 @@ void SteamWrap_DestroyResult(value invHandle)
 }
 DEFINE_PRIM(SteamWrap_DestroyResult,1);
 
+//-----------------------------------------------------------------------------------------------------------
+value SteamWrap_TriggerItemDrop(value itemID)
+{
+	SteamInventoryResult_t _result;
+	SteamItemDef_t _itemID = val_int(itemID);
+	SteamInventory()->TriggerItemDrop(&_result, _itemID);
+	return alloc_int(_result);
+}
+DEFINE_PRIM(SteamWrap_TriggerItemDrop,1);
 
 #pragma endregion
 
