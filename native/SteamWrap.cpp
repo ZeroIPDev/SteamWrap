@@ -3016,6 +3016,16 @@ value SteamWrap_TriggerItemDrop(value itemID)
 }
 DEFINE_PRIM(SteamWrap_TriggerItemDrop,1);
 
+//-----------------------------------------------------------------------------------------------------------
+value SteamWrap_ConsumeItem(value itemInstanceID)
+{
+	SteamItemInstanceID_t _itemInstanceID = val_int(itemInstanceID);
+	SteamInventoryResult_t _result;
+	SteamInventory()->ConsumeItem(&_result, _itemInstanceID, 1);
+	return alloc_int(_result);
+}
+DEFINE_PRIM(SteamWrap_ConsumeItem,1);
+
 #pragma endregion
 
 void mylib_main()

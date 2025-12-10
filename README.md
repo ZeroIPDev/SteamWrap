@@ -8,7 +8,7 @@ Simple Haxe native extension Steam API wrapper. This code originally shipped in 
 - Steam Controller Support
 - UGC (user generated content)
 - Stats (not well-tested)
-- Inventory (WIP, not well-tested)
+- Inventory (WIP)
 
 #### Dependencies / Requirements:
 
