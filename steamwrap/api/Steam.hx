@@ -10,6 +10,7 @@ import steamwrap.api.Steam.SteamUGCDetails;
 import steamwrap.api.Steam.SteamUGCQueryCompleted;
 import steamwrap.helpers.Loader;
 import steamwrap.helpers.Util;
+import steamwrap.data.SteamItem;
 
 private enum LeaderboardOp
 {
@@ -479,9 +480,9 @@ class Steam
 		return SteamWrap_GetResultStatus(handle);
 	}
 
-	public static function getResultItems(handle:Int):String {
-		if(!active) return "";
-		return SteamWrap_GetResultItems(handle);
+	public static function getResultItems(handle:Int):Array<SteamItem> {
+		if(!active) return [];
+		return SteamItem.fromString(SteamWrap_GetResultItems(handle));
 	}
 
 	public static function generateItems(items:Array<Int>, amounts:Array<Int>):Int {
