@@ -106,6 +106,8 @@ class Steam
 	public static var whenItemInstalled:String->Void;
 	public static var whenItemDownloaded:Bool->String->Void;
 	public static var whenQueryUGCRequestSent:SteamUGCQueryCompleted->Void;
+
+	public static inline var DYNAMIC_PROPERTIES:String = "dynamic_props";
 	
 	/**
 	 * @param appId_	Your Steam APP ID (the numbers on the end of your store page URL - store.steampowered.com/app/XYZ)
@@ -165,6 +167,7 @@ class Steam
 			SteamWrap_StartUpdateProperties = cpp.Lib.load("steamwrap", "SteamWrap_StartUpdateProperties", 0);
 			SteamWrap_SetProperty = cpp.Lib.load("steamwrap", "SteamWrap_SetProperty", 4);
 			SteamWrap_SubmitUpdateProperties = cpp.Lib.load("steamwrap", "SteamWrap_SubmitUpdateProperties", 1);
+			SteamWrap_GetResultItemProperty = cpp.Lib.load("steamwrap", "SteamWrap_GetResultItemProperty", 3);
 		}
 		catch (e:Dynamic) {
 			customTrace("Running non-Steam version (" + e + ")");
@@ -525,6 +528,11 @@ class Steam
 		return SteamWrap_SubmitUpdateProperties(handle);
 	}
 
+	public static function getResultItemProperty(handle:Int, index:Int, propertyName:String):String
+	{
+		return SteamWrap_GetResultItemProperty(handle, index, propertyName);
+	}
+
 	//PRIVATE:
 
 	private static var haveGlobalStats:Bool;
@@ -747,6 +755,7 @@ class Steam
 	private static var SteamWrap_StartUpdateProperties:Dynamic;
 	private static var SteamWrap_SetProperty:Dynamic;
 	private static var SteamWrap_SubmitUpdateProperties:Dynamic;
+	private static var SteamWrap_GetResultItemProperty:Dynamic;
 }
 
 class LeaderboardScore {
