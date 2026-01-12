@@ -3026,6 +3026,46 @@ value SteamWrap_ConsumeItem(value itemInstanceID)
 }
 DEFINE_PRIM(SteamWrap_ConsumeItem,1);
 
+//-----------------------------------------------------------------------------------------------------------
+value SteamWrap_StartUpdateProperties()
+{
+	SteamInventoryUpdateHandle_t _updateHandle = SteamInventory()->StartUpdateProperties();
+	return alloc_int(_updateHandle);
+}
+DEFINE_PRIM(SteamWrap_StartUpdateProperties, 0);
+
+//-----------------------------------------------------------------------------------------------------------
+void SteamWrap_SetProperty(value handle, value itemID, value propertyName, value propertyVal)
+{
+	SteamInventoryUpdateHandle_t _updateHandle = val_int(handle);
+	SteamItemInstanceID_t _itemID = val_int(itemID);
+	std::string _propertyName = val_string(propertyName);
+	const char* _propertyName_c = _propertyName.c_str();
+	if(val_is_bool(propertyVal)) {
+		bool _val = val_bool(propertyVal);
+		SteamInventory()->SetProperty(_updateHandle, _itemID, _propertyName_c, _val);
+	}
+	else if(val_is_int(propertyVal)) {
+		int64 _val = val_int(propertyVal);
+		SteamInventory()->SetProperty(_updateHandle, _itemID, _propertyName_c, _val);
+	}
+	else if(val_is_float(propertyVal)) {
+		float _val = val_float(propertyVal);
+		SteamInventory()->SetProperty(_updateHandle, _itemID, _propertyName_c, _val);
+	}
+}
+DEFINE_PRIM(SteamWrap_SetProperty, 4);
+
+//-----------------------------------------------------------------------------------------------------------
+value SteamWrap_SubmitUpdateProperties(value handle)
+{
+	SteamInventoryResult_t _result;
+	SteamInventoryUpdateHandle_t _updateHandle = val_int(handle);
+	SteamInventory()->SubmitUpdateProperties(_updateHandle, &_result);
+	return alloc_int(_result);
+}
+DEFINE_PRIM(SteamWrap_SubmitUpdateProperties, 1);
+
 #pragma endregion
 
 void mylib_main()

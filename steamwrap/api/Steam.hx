@@ -162,6 +162,9 @@ class Steam
 			SteamWrap_DestroyResult = cpp.Lib.load("steamwrap", "SteamWrap_DestroyResult", 1);
 			SteamWrap_TriggerItemDrop = cpp.Lib.load("steamwrap", "SteamWrap_TriggerItemDrop", 1);
 			SteamWrap_ConsumeItem = cpp.Lib.load("steamwrap", "SteamWrap_ConsumeItem", 1);
+			SteamWrap_StartUpdateProperties = cpp.Lib.load("steamwrap", "SteamWrap_StartUpdateProperties", 0);
+			SteamWrap_SetProperty = cpp.Lib.load("steamwrap", "SteamWrap_SetProperty", 4);
+			SteamWrap_SubmitUpdateProperties = cpp.Lib.load("steamwrap", "SteamWrap_SubmitUpdateProperties", 1);
 		}
 		catch (e:Dynamic) {
 			customTrace("Running non-Steam version (" + e + ")");
@@ -506,6 +509,22 @@ class Steam
 		return SteamWrap_ConsumeItem(instanceID);
 	}
 
+	public static function startUpdateProperties():Int
+	{
+		if(!active) return -1;
+		return SteamWrap_StartUpdateProperties();
+	}
+
+	public static function setProperty(handle:Int, itemInstanceID:Int, propertyName:String, propertyValue:Any)
+	{
+		SteamWrap_SetProperty(handle, itemInstanceID, propertyName, propertyValue);
+	}
+
+	public static function submitUpdateProperties(handle:Int):Int
+	{
+		return SteamWrap_SubmitUpdateProperties(handle);
+	}
+
 	//PRIVATE:
 
 	private static var haveGlobalStats:Bool;
@@ -725,6 +744,9 @@ class Steam
 	private static var SteamWrap_DestroyResult:Dynamic;
 	private static var SteamWrap_TriggerItemDrop:Dynamic;
 	private static var SteamWrap_ConsumeItem:Dynamic;
+	private static var SteamWrap_StartUpdateProperties:Dynamic;
+	private static var SteamWrap_SetProperty:Dynamic;
+	private static var SteamWrap_SubmitUpdateProperties:Dynamic;
 }
 
 class LeaderboardScore {
