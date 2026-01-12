@@ -3070,13 +3070,16 @@ DEFINE_PRIM(SteamWrap_SubmitUpdateProperties, 1);
 value SteamWrap_GetResultItemProperty(value handle, value itemIndex, value propertyName)
 {
 	SteamInventoryResult_t _result = val_int(handle);
-	uint32 _index = val_int(itemIndex);
+	uint32_t _index = val_int(itemIndex);
 	std::string _propertyName = val_string(propertyName);
 	const char* _propertyName_c = _propertyName.c_str();
 	char* buffer_val;
-	uint32* buffer_size;
+	uint32_t* buffer_size;
 	SteamInventory()->GetResultItemProperty(_result, _index, _propertyName_c, buffer_val, buffer_size);
-	return alloc_string(buffer_val);
+	if(buffer_size)
+		return alloc_string(buffer_val);
+	else
+		return alloc_null();
 }
 DEFINE_PRIM(SteamWrap_GetResultItemProperty, 3);
 
